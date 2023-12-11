@@ -17,19 +17,19 @@ from django.utils import timezone
 def index(request):
     products = Product.objects.all().order_by('date')
 
-    # Create a list to store product details and associated images
+  
     product_data = []
 
     for product in products:
         try:
-            # Get the related image for the product
+            
            image = Image.objects.filter(product=product).first()
            image_url = image.image.url if image else None
         except Image.DoesNotExist:
-            # Handle the case where there is no associated image for the product
+            
             image_url = None
 
-        # Append product details and image URL to the list
+        
         product_data.append({
             'product': product,
             'image_url': image_url,
@@ -42,13 +42,13 @@ def index(request):
     try:
         product_data = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver the first page.
+        
         product_data = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g., 9999), deliver the last page of results.
+        
         product_data = paginator.page(paginator.num_pages)    
 
-    # Pass the product data to the template
+    
     context = {'product_data': product_data}
 
     return render(request,'index.html',context)
@@ -60,19 +60,19 @@ def cart(request):
         user_email = request.session.get('profile')
         user = Userdetails.objects.get(email=user_email)
 
-        # Retrieve cart items for the current user
+        
         cart_items = Cart.objects.filter(user=user)
 
         for item in cart_items:
 
             first_image = item.product.image_set.first()
             
-            # Pass the image URL to the template
+            
             item.image_url = first_image.image.url if first_image else None
 
             item.total_amount = item.quantity * item.product.price
 
-        # Calculate the total price for all items in the cart
+        
         cart_total = sum(item.total_amount for item in cart_items)
         
         
@@ -95,19 +95,19 @@ def cart(request):
 def grid(request):
     products = Product.objects.all().order_by('date')
 
-    # Create a list to store product details and associated images
+   
     product_data = []
 
     for product in products:
         try:
-            # Get the related image for the product
+            
            image = Image.objects.filter(product=product).first()
            image_url = image.image.url if image else None
         except Image.DoesNotExist:
-            # Handle the case where there is no associated image for the product
+           
             image_url = None
 
-        # Append product details and image URL to the list
+       
         product_data.append({
             'product': product,
             'image_url': image_url,
