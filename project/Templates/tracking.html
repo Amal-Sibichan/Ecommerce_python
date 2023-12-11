@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Your Order</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/css/log.css' %}">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h4>Your Order</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="{{ order.image }}" class="img-fluid" alt="Product Image">
+                </div>
+                <div class="col-md-9">
+                    <h5>Order ID: {{ order.id }}</h5>
+                    <p>Product: {{ order.product.product_name }}</p>
+                    <p>Quantity: {{ order.quantity }}</p>
+                    <p>Size: {{ order.size }}</p>
+                    <p>Price: Rs, {{ order.price }}</p>
+                    <p >Payment mode: <span style="color: green;" > {{ order.pstatus }}</span></p>
+                    <p>Status: <span style="color: blue;">{{ order.status }} --> {{order.date}} </span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+
+ body {
+      background-color: #f8f9fa;
+}
+.profile-container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.user-details-card {
+    background-color: gray;
+    color: #fff;
+    border-bottom: 2px solid gray;
+}
+
+.user-details-card h5 {
+    margin-bottom: 0;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+ }
+
+.modal-content {
+    border-radius: 10px;
+}
+.navbar {
+    background-color: white; /* Change this to the background color you prefer */
+    font-size: 20px;
+    border-bottom: 2px solid black;
+}
+  
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #343a40; /* Change this to the text color you prefer */
+}
+  
+.navbar-brand:hover,
+.navbar-nav .nav-link:hover {
+    color: #F7941D; /* Change this to the hover color you prefer */
+}
+  
+  /* Optional: Add transition effect for smooth hover */
+.navbar-brand,
+.navbar-nav .nav-link {
+    transition: color 0.3s ease-in-out;
+}

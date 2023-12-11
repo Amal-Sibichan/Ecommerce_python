@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/css/custom.css' %}">
+    
+
+
+    
+    <title>Add Product</title>
+</head>
+<body>
+
+
+    <div class="logo">
+        <a href="{% url "index" %}"><img src="{% static '/images/logo.png' %}" alt="logo"></a>
+    </div>
+
+    
+<div class="container">
+    <h2 class="mb-4">Add Product</h2>
+    <form method="post" enctype="multipart/form-data" action="{% url 'add' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="productName">Product Name:</label>
+            <input type="text" class="form-control" id="product_name" name="product_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="discription">Product Description:</label>
+            <textarea class="form-control" id="discription" name="discription" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="productPrice">Product Price:</label>
+            <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">quantity:</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" required>
+        </div>
+        <div class="form-group">
+            <label for="sizes">Sizes:</label>
+            <div class="checkbox-container" style="display: flex;flex-direction: row;">
+                <div>
+                    <input type="checkbox" id="size_small" name="sizes" value="small">
+                    <label for="size_small">Small</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="size_medium" name="sizes" value="medium">
+                    <label for="size_medium">Medium</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="size_large" name="sizes" value="large">
+                    <label for="size_large">Large</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="size_large" name="sizes" value="7uk">
+                    <label for="size_large">7 uk</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="size_large" name="sizes" value="8uk">
+                    <label for="size_large">8 uk</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="size_large" name="sizes" value="9uk">
+                    <label for="size_large">9uk</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="size_large" name="sizes" value="10uk">
+                    <label for="size_large">10 uk</label>
+                </div>
+                <!-- Add more size options as needed -->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+  <select name="category_select">
+    <option value="">Select category</option>
+    {% for category in categories %}
+      <option value="{{ category.category_id }}">{{ category.category_name }}</option>
+    {% endfor %}
+  </select>
+        </select><br>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="images">Images:</label>
+            <input type="file" class="form-control-file" id="images" name="images" multiple accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-warning">Add Product</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "sbase.html" %}
+{% load static %}
+
+{% block title %}checkout{% endblock title %}
+
+
+
+{% block content %}
+	
+		
+
+				
+		<!-- Start Checkout -->
+        <div class="container" id="container">
+            <div class="form-container sign-in-container"style="padding-left: 350px;">
+                <form action="{% url 'sellerregister' %}" method="post">
+                    {% csrf_token %}
+                    <h1 style="padding-left: 100px;">Create Account</h1><br>
+                    
+                    <input type="text" placeholder="Name" name='seller_name'style="width: 500px;" required/><br><br>
+                    <input type="email" placeholder="Email" name='email'style="width: 500px;" required /><br><br>
+                    <input type="number" placeholder="phone"name='phone'style="width: 500px;" required/><br><br>
+                    <input type="text" placeholder="company" name='companyname'style="width: 500px;" required/><br><br>
+                    <textarea style="width: 500px;" id="address" name="address" placeholder="address"></textarea><br><br>
+                    <input type="password" placeholder="Password" name='password1'style="width: 500px;" required/><br><br>
+                    <input type="password" placeholder="Confirm Password" name='password2'style="width: 500px;" required/><br><br>
+                    <div>
+                        {% for message in messages %}
+                        <h5 style="color: red; font-size:x-small; font-style: italic;"> {{message}}</h5><br>
+                        
+                        {% endfor %}
+                    </div>
+                    
+                    <button type="submit">Sign Up</button><br>
+                    <a href="{% url "sellerlogin" %}" style="color: #F7941D">alredy have an account...</a><br>
+                </form>
+            </div>
+            
+        </div>
+    {% endblock content%}

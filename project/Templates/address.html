@@ -1,0 +1,54 @@
+{% extends "sbase.html" %}
+{% load static %}
+
+{% block title %}checkout{% endblock title %}
+
+
+
+{% block content %}
+
+
+
+	
+
+				
+		<!-- Start Checkout -->
+        <div class="container" id="container">
+            <div class="form-container sign-in-container"style="padding-left: 350px;">
+
+                {% if address_exists %}
+                <h3>Address is already present:</h3>
+                {% else %}
+                <form action="{% url 'add_address' %}" method="post">
+                    {% csrf_token %}
+                    <h1 style="padding-left: 100px;">Create Account</h1><br>
+                    <label for="home">House/flat/no/name:</label>
+                    <input type="text" placeholder="" name="home" class="form-control"style="width: 500px;" required/><br>
+
+                    <label for="street">Street:</label>
+                    <input type="text" name="street" class="form-control" style="width: 500px;" required /><br>
+
+                    <label for="city">City:</label>
+                    <input type="text" name="city" class="form-control" style="width: 500px;" required/><br>
+
+                    <label for="state">State:</label>
+                    <input  type="text" name="state" class="form-control" style="width: 500px;" required/><br>
+
+                    <label for="zip_code">ZIP Code:</label>
+                    <input type="text" name="zip_code" class="form-control" style="width: 500px;" required/><br>
+
+                    <div>
+                        {% for message in messages %}
+                        <h5 style="color: red; font-size: smaller;"> {{message}}</h5><br>
+                        
+                        {% endfor %}
+                    </div>
+                    
+                    <button type="submit">Add</button><br>
+                </form>
+              {%endif%}
+            </div>
+            
+        </div>
+        
+    {% endblock content%}

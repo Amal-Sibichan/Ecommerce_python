@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Success</title>
+    
+    <!-- Bootstrap CSS (you may need to adjust the paths based on your project setup) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Order Placed</h1>
+        <p>Your order will be shipped to:</p>
+        <p>{{ name }},{{ home }} (H),{{ street }} PO,{{ city }},{{state}}{{ zip_code }}</p>
+       
+       <!--  <p>Estimated delivery date: December 15, 2023</p>-->
+
+        <p>For any inquiries, please contact our customer support.</p>
+
+        <form action="{% url "proceed" %}" method="POST">
+            {% csrf_token %}
+           
+            <input type="hidden" name="pstatus" value=" online payment">
+
+
+            <button type="submit" class="btn btn-">Continue Shopping</button>
+        </form>
+
+    </div>
+
+    <!-- Bootstrap JS (optional, but required for some Bootstrap features) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

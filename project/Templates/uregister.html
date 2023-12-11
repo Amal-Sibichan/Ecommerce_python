@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static '/css/style2.css' %}">
+    
+    <!-- Custom CSS -->
+</head>
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-in-container">
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <h1>Create Account</h1>
+                
+                <input type="text" placeholder="Name" name='firstname' required/>
+                <input type="email" placeholder="Email" name='email' required />
+                <input type="number" placeholder="phone"name='phone' required/>
+                <input type="password" placeholder="Password" name='password1' required/>
+                <input type="password" placeholder="Confirm Password" name='password2' required/>
+                <div>
+                    {% for message in messages %}
+                    <h5 style="color: red;"> {{message}}</h5>
+                    
+                    {% endfor %}
+                </div><br>
+                
+                <button type="submit">Sign Up</button><br>
+                <a href="{% url "userlogin" %}" style="color: #F7941D">alredy have an account...</a><br>
+            </form>
+        </div>
+        
+    </div>
+
+
+
+</body>
+</html>

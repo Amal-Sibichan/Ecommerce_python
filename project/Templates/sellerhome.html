@@ -1,0 +1,33 @@
+{% extends "sbase.html" %}
+{% load static %}
+
+{% block title %}shop all{% endblock title %}
+
+
+
+{% block content %}
+<div class="container">
+    <ul class="product-list" style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        {% for entry in product_data %}
+            <li class="product-item" style="width: 200px; margin-bottom: 20px; display: flex; flex-direction: column; border: 1px solid #ddd; padding: 10px; box-sizing: border-box;">
+                <!-- Display product details and image -->
+                <h2>{{ entry.product.product_name }}</h2>
+                <p>Price: ${{ entry.product.price }}</p>
+                <p>{{ entry.product.category.category_name }}</p>
+
+                {% if entry.image_url %}
+                    <img src="{{ entry.image_url }}" alt="{{ entry.product.product_name }}" style="width: 100%; height: auto;">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+
+
+
+{% endblock content %}
