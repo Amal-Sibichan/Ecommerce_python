@@ -106,11 +106,13 @@ def grid(request):
         except Image.DoesNotExist:
            
             image_url = None
+        stock = product.quantity >= 1
 
        
         product_data.append({
             'product': product,
             'image_url': image_url,
+            'stock':stock,
         })
 
     products_per_page = 9
@@ -206,11 +208,14 @@ def delete_cart_item(request, cart_item_id):
 def product_details(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
     sizes = Size.objects.all()
+    stock = product.quantity >=1
+    print(stock)
+
 
     # Get the related images for the product
     images = Image.objects.filter(product=product)
 
-    context = {'product': product, 'images': images, 'sizes': sizes}
+    context = {'product': product, 'images': images, 'sizes': sizes,'stock':stock}
     return render(request, 'product_details.html', context)
 
 
@@ -255,6 +260,12 @@ def proceed(request):
                 date =dte,
                 pstatus=pstatus
             )
+
+        
+        product = item.product
+        product.quantity -= item.quantity
+        product.save()
+       
 
             
         # Clear the user's cart after creating orders

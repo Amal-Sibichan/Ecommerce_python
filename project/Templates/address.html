@@ -21,7 +21,7 @@
                 {% else %}
                 <form action="{% url 'add_address' %}" method="post">
                     {% csrf_token %}
-                    <h1 style="padding-left: 100px;">Create Account</h1><br>
+                    <h1 style="padding-left: 100px;">Add Address</h1><br>
                     <label for="home">House/flat/no/name:</label>
                     <input type="text" placeholder="" name="home" class="form-control"style="width: 500px;" required/><br>
 

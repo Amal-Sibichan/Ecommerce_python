@@ -89,9 +89,16 @@
 													<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 													
 												</div>
+												{% if entry.stock %}
 												<div class="product-action-2">
-													<a title="Add to cart" href="#">Add to cart</a>
+													<span style="color:green;"><i class="fa fa-check-circle-o" style="color:green;"></i> in stock</span>
 												</div>
+												{% else %}
+												<div class="product-action-2">
+													<span style="color:red;"><i class="ti-close" style="color:red;"></i> out of stock</span>
+												</div>
+
+												{% endif %}
 											</div>
 										</div>
 										<div class="product-content">
