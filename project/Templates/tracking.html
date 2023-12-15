@@ -30,6 +30,15 @@
                     <p>Price: Rs, {{ order.price }}</p>
                     <p >Payment mode: <span style="color: green;" > {{ order.pstatus }}</span></p>
                     <p>Status: <span style="color: blue;">{{ order.status }} --> {{order.date}} </span></p>
+                    {% if order.status  != 'Cancelled' %}
+                          {% if order.status  != 'Requested cancellation' %}
+                    <form method="post" action="{% url 'cancel' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        <button type="submit" class="btn btn-danger">Cancel order</button>
+                    </form>
+                          {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -666,7 +666,7 @@ def sprof(request):
         seller_id = request.session['seller']
         seller = get_object_or_404(Seller, pk=seller_id)
 
-        # Filter orders for the logged-in seller
+       
         pending_orders = Order.objects.filter(product__seller=seller).order_by('date')
 
        
@@ -750,6 +750,27 @@ def track_order(request, order_id):
 
 
 
+def cancelled_orders(request):
+  if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        order = get_object_or_404(Order, id=order_id)
+        order.status = 'Requested cancellation'
+        order.save()
+        return redirect('uprofile')
+
+def accept_cancel(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        if order_id:
+            # Update the status of the order to 'Accepted' or any other desired status
+            order = Order.objects.get(id=order_id)
+            
+            if order.status == 'Requested cancellation':
+             order.status = 'Cancelled'
+             order.save()
+
+
+    return redirect('sprofile')
 
 
 

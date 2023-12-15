@@ -17,7 +17,8 @@ urlpatterns = [
     path('proceed',views.proceed,name='proceed'),
     path('accept',views.accept_order,name='accept'),
     path('track_order/<int:order_id>/', views.track_order, name='track_order'),
-    
+    path('cancel',views.cancelled_orders, name='cancel'),
+    path('accept_cancel',views.accept_cancel, name='accept_cancel'),
 
 
     path('register',views.register,name='register'),

@@ -233,7 +233,7 @@
                     ph:{{item.user_details.phone}}
                   </td>
                   <td>
-                    <form method="post" action="{% url 'accept' %}">
+                    <form method="post" action="{% url 'accept_cancel' %}">
                         {% csrf_token %}
                         <input type="hidden" name="order_id" value="{{ item.order.id }}">
                         <button type="submit" class="btn btn-success">accept</button>
