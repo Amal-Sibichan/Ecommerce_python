@@ -90,7 +90,9 @@
             <p>{{ address.city }}</p>
             <p>{{ address.state }}</p>
             <p> {{ address.zip_code }}</p> 
+            <a href="{% url 'update-Address' %}" class="btn btn-info">Change</a>
          </div>
+         
           {% else %}
          <p>Please add your shipping address before proceeding to checkout.</p>
          <a href="{% url 'add_address' %}">Add Address</a>

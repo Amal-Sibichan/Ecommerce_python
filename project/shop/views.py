@@ -183,6 +183,7 @@ def add_to_cart(request):
         return redirect('cart') 
     
     return render(request, 'product_details.html') 
+   messages.success(request, ' please login to continue')
    return render(request, 'Ulogin.html')
     
    
@@ -272,6 +273,7 @@ def proceed(request):
        
         cart_items.delete()
 
+        messages.success(request, ' Order placed')
         return redirect('uprofile')
 
     else:
@@ -743,6 +745,11 @@ def track_order(request, order_id):
     # Add any additional logic to fetch tracking details if needed
     return render(request, 'tracking.html', {'order': order})
 
+
+
+
+
+
 def search_view(request):
      query = request.GET.get('query', '')
      category = request.GET.get('category', '')
@@ -768,6 +775,11 @@ def search_view(request):
             'product': product,
             'image_url': image_url,
         })
+
+
+     if not product_data:
+        messages.success(request, 'No result found...')
+        
      products_per_page = 9
 
      paginator = Paginator(product_data, products_per_page)
@@ -784,6 +796,11 @@ def search_view(request):
 
      context = {'product_data': product_data, 'query': query,'category': category}
      return render(request, 'search.html', context)
+
+
+
+
+
 
 def update(request):
     user_email = request.session.get('profile')
@@ -803,10 +820,13 @@ def update(request):
             userdetails.password = request.POST['password']
 
         userdetails.save()
-        messages.success(request, 'User details updated successfully.')
+        messages.success(request, ' details updated successfully.')
         return redirect('uprofile')   
 
     return render(request, 'updateuser.html', {'userdetails': userdetails})
+
+
+
 
 
 
@@ -833,6 +853,7 @@ def updateAddress(request):
         
 
         user_address.save()
+        messages.success(request, ' Address updated successfully.')
         return redirect('uprofile')   
 
     return render(request, 'update_address.html', {'user_address': user_address})

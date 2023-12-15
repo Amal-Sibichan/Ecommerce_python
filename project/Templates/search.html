@@ -36,7 +36,14 @@
 						
                         <div class="container">
 
-                    
+							{% if messages %}
+								<ul class="messages">
+									{% for message in messages %}
+									<i class="ti-face-sad">Oops..</i><li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+															
                             <div class="row">
                                 {% for entry in product_data %}
                                     <div class="col-lg-4 col-md-6 col-12">

@@ -22,12 +22,7 @@
                 <input type="number" placeholder="phone"name='phone' value="{{ userdetails.phone }}" />
                 <input type="password" placeholder="Password" name='password1' />
                 <input type="password" placeholder="Confirm Password" name='password2' />
-                <div>
-                    {% for message in messages %}
-                    <h5 style="color: red;"> {{message}}</h5>
-                    
-                    {% endfor %}
-                </div><br>
+               
                 
                 <button type="submit">Update</button><br>
             </form>

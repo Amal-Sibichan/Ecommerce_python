@@ -33,6 +33,18 @@
       </div>
     </div>
   </nav>
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert" id="myAlert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
 
   <div class="container mt-5 profile-container">
     <div class="row">
@@ -95,6 +107,7 @@
       <a href="{% url 'add_address' %}" class="btn btn-info">Add Address</a>
         {% endif %}
   </div>
+  
 
   <!-- Modals -->
 
@@ -170,9 +183,16 @@
   </div>
 
   <!-- Bootstrap JS and dependencies -->
+  <script>
+    // Use setTimeout to close the alert after 5000 milliseconds (5 seconds)
+    setTimeout(function() {
+      document.getElementById('myAlert').style.display = 'none';
+    }, 3000);
+  </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
 
 </body>
 </html>

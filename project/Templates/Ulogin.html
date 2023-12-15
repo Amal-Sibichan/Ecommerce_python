@@ -11,6 +11,18 @@
     <!-- Custom CSS -->
 </head>
 <body>
+    {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+     {% if message.tags == 'success' %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert" id="myAlert" style="color: skyblue;">
+        {{ message }}
+        </button>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
 
     <div class="container" id="container">
        
@@ -23,7 +35,9 @@
                 <input type="password" name="password" placeholder="Password" required />
                 <div>
                     {% for message in messages %}
+                     {% if message.tags == 'error' %}
                     <h5 style="color: red;"> {{message}}</h5>
+                    {% endif %}
                     
                     {% endfor %}
         
@@ -38,6 +52,12 @@
         
     </div>
 <script src="{% static '/js/js2.js' %}"></script>
+<script>
+    
+    setTimeout(function() {
+      document.getElementById('myAlert').style.display = 'none';
+    }, 3000);
+  </script>
 
 </body>
 </html>

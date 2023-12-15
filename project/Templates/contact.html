@@ -9,34 +9,32 @@
 	
 	
 	
-<h1>Your Order History</h1>
+<header>
+    <h1 Style="text-align:center">Your Ecommerce Store</h1>
+    <p Style="text-align:center">Contact Us</p>
+  </header><br><br>
 
-{% if orders %}
-	<table>
-		<thead>
-			<tr>
-				
-				<th>Product</th>
-				<th>Quantity</th>
-				<th>Price</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for order in orders %}
-				<tr>
-				
-					<td>{{ order.product.product_name }}</td>
-					<td>{{ order.quantity }}</td>
-					<td>${{ order.price }}</td>
-					<td>{{ order.status }}</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-{% else %}
-	<p>No orders yet.</p>
-{% endif %}
+  <main>
+    <h2 Style="text-align:center">Contact Information</h2>
+    <p Style="text-align:center">
+      If you have any questions or concerns, feel free to reach out to us. We are here to help!
+    </p>
+
+    <h2>Contact Form</h2><br><br>
+    <form action="/submit-contact" method="post">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="message">Your Message:</label>
+      <textarea id="message" name="message" rows="5" required></textarea><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+
 
 	
 	{% endblock content %}
