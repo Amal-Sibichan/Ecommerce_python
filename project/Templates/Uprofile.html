@@ -86,8 +86,11 @@
               <strong></strong> {{ view_user_address.state }}<br>
               <strong></strong> {{ view_user_address.zip_code }}
             </p>
+
+            <a href="{% url 'update-Address' %}" class="btn btn-info">Update</a>
           </div>
         </div>
+        
       {%else%}
       <a href="{% url 'add_address' %}" class="btn btn-info">Add Address</a>
         {% endif %}
@@ -140,7 +143,7 @@
         <div class="modal-body">
           <!-- Display account settings form or information here -->
           <a href="{% url "logout" %}">Logout</a><br>
-          <a href="">Edit profile</a><br>
+          <a href="{% url "update-user" %}">Edit profile</a><br>
           
 
         </div>

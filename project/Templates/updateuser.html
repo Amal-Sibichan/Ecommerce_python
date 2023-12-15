@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Update Page</title>
+    <link rel="stylesheet" href="{% static '/css/style2.css' %}">
+    
+    <!-- Custom CSS -->
+</head>
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-in-container">
+            <form action="{% url 'update-user' %}" method="post">
+                {% csrf_token %}
+                <h1>Update </h1>
+                
+                <input type="text" placeholder="Name" name='firstname' value="{{ userdetails.firstname }}" />
+                <input type="email" placeholder="Email" name='email' value="{{ userdetails.email }}"  />
+                <input type="number" placeholder="phone"name='phone' value="{{ userdetails.phone }}" />
+                <input type="password" placeholder="Password" name='password1' />
+                <input type="password" placeholder="Confirm Password" name='password2' />
+                <div>
+                    {% for message in messages %}
+                    <h5 style="color: red;"> {{message}}</h5>
+                    
+                    {% endfor %}
+                </div><br>
+                
+                <button type="submit">Update</button><br>
+            </form>
+        </div>
+        
+    </div>
+
+
+
+</body>
+</html>

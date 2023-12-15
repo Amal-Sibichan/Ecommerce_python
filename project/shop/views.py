@@ -1,10 +1,9 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
+
 import razorpay
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from.models import Userdetails,Address,Seller,Product, Image, Size,Category,Cart,Order
 from django.db.models import Q 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -52,6 +51,8 @@ def index(request):
     context = {'product_data': product_data}
 
     return render(request,'index.html',context)
+
+
 
 
 
@@ -177,9 +178,9 @@ def add_to_cart(request):
 
         
 
-        # You can perform additional operations here, like updating quantities if the item already exists
+        
 
-        return redirect('cart')  # Redirect to the cart page or any other desired page
+        return redirect('cart') 
     
     return render(request, 'product_details.html') 
    return render(request, 'Ulogin.html')
@@ -241,13 +242,13 @@ def proceed(request):
         address = user.address_set.first()
 
         if not address:
-            # Redirect the user to add an address if none exists
+            
             return redirect('add_address')
 
-        # Get the user's cart items
+        
         cart_items = Cart.objects.filter(user=user)
 
-        # Create orders for each cart item
+       
         for item in cart_items:
             order = Order.objects.create(
                 user=user,
@@ -268,13 +269,13 @@ def proceed(request):
        
 
             
-        # Clear the user's cart after creating orders
+       
         cart_items.delete()
 
         return redirect('uprofile')
 
     else:
-        # Handle the case where the user email is not in the session
+       
         return redirect('userlogin')
 
 
@@ -321,22 +322,22 @@ def checkout(request):
 
             item.total_amount = item.quantity * item.product.price
 
-        # Calculate the total price for all items in the cart
+        
         cart_total = sum(item.total_amount for item in cart_items)
         pay = cart_total * 100
-        # Check if the user has an address
+       
         address_exists = Address.objects.filter(email=user).exists()
         
 
         if address_exists:
-            # If the user has an address, retrieve and display it
+           
             address = Address.objects.get(email=user)
             context = {'address': address,'cart_total':cart_total ,'name': name,'pay':pay}
         else:
-            # If the user doesn't have an address, redirect to the add address page
+            
             return redirect('add_address')
 
-        # Add other necessary context data and logic for checkout
+        
 
         return render(request, 'checkout.html', context)
 
@@ -507,25 +508,25 @@ def shome(request):
      seller_id = request.session['seller']
 
      if seller_id:
-        # Fetch products uploaded by the seller
+        
         products = Product.objects.filter(seller=seller_id)
         print(products)
 
-        # Create a list to store product details and associated images
+        
         product_data = []
 
         for product in products:
-            # Get the first related image for the product
+            
             image = Image.objects.filter(product=product).first()
             image_url = image.image.url if image else None
 
-            # Append product details and image URL to the list
+            
             product_data.append({
                 'product': product,
                 'image_url': image_url
             })
 
-        # Pass the product data to the template
+        
         context = {'product_data': product_data}
         return render(request, 'sellerhome.html', context)
    else:
@@ -539,27 +540,27 @@ def shome(request):
 
 def add(request):
      if request.method == 'POST':
-        # Get form data from POST request
+        
         product_name = request.POST.get('product_name')
         discription = request.POST.get('discription')
         price = request.POST.get('price')
         quantity = request.POST.get('quantity')
-        sizes = request.POST.getlist('sizes')  # Assuming sizes is a multiple-choice field in your form
+        sizes = request.POST.getlist('sizes')  
         images = request.FILES.getlist('images')
         selected_category = request.POST.get('category_select')
 
-        # Fetch the seller based on the seller_id session key
+        
         seller_id = request.session.get('seller')
 
         try:
             seller = Seller.objects.get(id=seller_id)
         except ObjectDoesNotExist:
-            # Handle the case where the seller does not exist (optional)
+            
             return render(request, 'error_page.html', {'error_message': 'Seller does not exist.'})
         
         categories = Category.objects.all()
 
-        # Create the product
+        
         product = Product.objects.create(
             seller=seller,
             product_name=product_name,
@@ -568,7 +569,7 @@ def add(request):
             quantity=quantity
         )
 
-        # Add sizes to the product
+       
         size_objects = [Size.objects.get_or_create(size_name=size)[0] for size in sizes]
         product.sizes.set(size_objects)
 
@@ -600,18 +601,18 @@ def address(request):
         return redirect('Slogin')  #
     user = get_object_or_404(Userdetails, email=user_email)
 
-    # Check if the user already has an address
+    
     address_exists = Address.objects.filter(email=user).exists()
 
     if not address_exists and request.method == 'POST':
-        # Process the form submission
+       
         home = request.POST.get('home')
         street = request.POST.get('street')
         city = request.POST.get('city')
         state = request.POST.get('state')
         zip_code = request.POST.get('zip_code')
 
-        # Create a new address for the user
+        
         Address.objects.create(
             email=user,
             home=home,
@@ -621,8 +622,8 @@ def address(request):
             zip_code=zip_code
         )
 
-        # Redirect to the user profile or any other desired page
-        return redirect('uprofile')  # Change 'user_profile' to your actual user profile URL
+        
+        return redirect('uprofile')  
 
     return render(request, 'address.html', {'user_email': user_email, 'address_exists': address_exists})
 
@@ -639,7 +640,7 @@ def uprof(request):
         try:
             user_details = Userdetails.objects.get(email=email)
         except Userdetails.DoesNotExist:
-            # Handle the case where the user with the provided email does not exist
+            
             return redirect('userlogin')
 
         try:
@@ -663,21 +664,21 @@ def sprof(request):
         id = request.session['seller']
         pending_orders = Order.objects.all().order_by('date')
 
-        # Create a list to store order details for rendering in the template
+       
         order_details = []
 
         for order in pending_orders:
-            # Get user details
+            
             user_details = order.user
             user_address = get_object_or_404(Address, email=user_details)
 
-            # Get product details
+            
             product = get_object_or_404(Product, pk=order.product_id)
             product_image = Image.objects.filter(product=product).first()
             image = product_image.image.url
             seller = get_object_or_404(Seller, pk=product.seller_id)
 
-            # Calculate total price
+           
             total_price = order.price / order.quantity
 
             order_details.append({
@@ -783,6 +784,64 @@ def search_view(request):
 
      context = {'product_data': product_data, 'query': query,'category': category}
      return render(request, 'search.html', context)
+
+def update(request):
+    user_email = request.session.get('profile')
+    userdetails = Userdetails.objects.get(email=user_email)
+    if request.method == 'POST':
+        # Update fields only if there are new values
+        if 'firstname' in request.POST and request.POST['firstname'] != '':
+            userdetails.firstname = request.POST['firstname']
+
+        if 'phone' in request.POST and request.POST['phone'] != '':
+            userdetails.phone = request.POST['phone']
+
+        if 'email' in request.POST and request.POST['email'] != '':
+            userdetails.email = request.POST['email']
+
+        if 'password' in request.POST and request.POST['password'] != '':
+            userdetails.password = request.POST['password']
+
+        userdetails.save()
+        messages.success(request, 'User details updated successfully.')
+        return redirect('uprofile')   
+
+    return render(request, 'updateuser.html', {'userdetails': userdetails})
+
+
+
+def updateAddress(request):
+    user_email = request.session.get('profile')
+    userdetails = Userdetails.objects.get(email=user_email)
+    user_address = Address.objects.get(email=userdetails)
+    if request.method == 'POST':
+        # Update fields only if there are new values
+        if 'home' in request.POST and request.POST['home'] != '':
+            user_address.home = request.POST['home']
+
+        if 'street' in request.POST and request.POST['street'] != '':
+            user_address.street = request.POST['street']
+
+        if 'city' in request.POST and request.POST['city'] != '':
+            user_address.city = request.POST['city']
+
+        if 'state' in request.POST and request.POST['state'] != '':
+            user_address.state = request.POST['state']
+        
+        if 'zip_code' in request.POST and request.POST['zip_code'] != '':
+            user_address.zip_code = request.POST['zip_code']
+        
+
+        user_address.save()
+        return redirect('uprofile')   
+
+    return render(request, 'update_address.html', {'user_address': user_address})
+
+
+
+
+
+
 
 def logout_u(request):
     logout(request)

@@ -26,6 +26,8 @@ urlpatterns = [
     path('search/',views.search_view, name='search_view'),
     path('pay',views.pay,name='pay'),
     path('success' ,views.success , name='success'),
+    path('update-user', views.update, name='update-user'),
+    path('update-Address', views.updateAddress, name='update-Address'),
 
 
 
