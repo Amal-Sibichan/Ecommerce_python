@@ -663,8 +663,11 @@ def uprof(request):
 
 def sprof(request):
     if 'seller' in request.session:
-        id = request.session['seller']
-        pending_orders = Order.objects.all().order_by('date')
+        seller_id = request.session['seller']
+        seller = get_object_or_404(Seller, pk=seller_id)
+
+        # Filter orders for the logged-in seller
+        pending_orders = Order.objects.filter(product__seller=seller).order_by('date')
 
        
         order_details = []

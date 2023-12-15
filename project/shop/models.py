@@ -67,6 +67,6 @@ class Order(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
-    status = models.CharField(max_length=20, default='Pending')
+    status = models.CharField(max_length=30, default='Pending')
     pstatus = models.CharField(max_length=20)
     date = models.DateField(null=True, blank=True)
