@@ -696,7 +696,7 @@ def sprof(request):
                 'image': image,
             })
 
-        return render(request, 'Sprofile.html', {'order_details': order_details})
+        return render(request, 'Sprofile.html', {'order_details': order_details,'seller': seller,})
     else:
         return redirect('sellerlogin')
 
@@ -756,6 +756,7 @@ def cancelled_orders(request):
         order = get_object_or_404(Order, id=order_id)
         order.status = 'Requested cancellation'
         order.save()
+        messages.success(request, 'Requested cancelation')
         return redirect('uprofile')
 
 def accept_cancel(request):
